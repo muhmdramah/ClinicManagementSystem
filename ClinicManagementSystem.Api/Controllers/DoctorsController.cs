@@ -1,4 +1,5 @@
-﻿using ClinicManagementSystem.Api.Dtos;
+﻿using AutoMapper;
+using ClinicManagementSystem.Api.Dtos;
 using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace ClinicManagementSystem.Api.Controllers
     public class DoctorsController : ControllerBase
     {
         private readonly IGenericRepository<Doctor> _doctorRepo;
+        private readonly IMapper _mapper;
 
-        public DoctorsController(IGenericRepository<Doctor> doctorRepo)
+        public DoctorsController(IGenericRepository<Doctor> doctorRepo, IMapper mapper)
         {
             _doctorRepo = doctorRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,16 +39,10 @@ namespace ClinicManagementSystem.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateDoctorDto dto)
         {
-            var doctor = new Doctor
-            {
-                FullName = dto.FullName,
-                Phone = dto.Phone,
-                Email = dto.Email,
-                Specialization = dto.Specialization,
-                Bio = dto.Bio,
-                ConsultationFee = dto.ConsultationFee,
-                DepartmentId = dto.DepartmentId,
-            };
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var doctor = _mapper.Map<Doctor>(dto);
 
             await _doctorRepo.AddAsync(doctor);
 
