@@ -25,15 +25,9 @@ namespace ClinicManagementSystem.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public async Task<T> GetByIdAsync(int id)
         {
-            IQueryable<T> query = _context.Set<T>();
-
-            if (includes != null)
-                foreach (var include in includes)
-                    query = query.Include(include);
-
-            return await query.FirstOrDefaultAsync(criteria);
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public async Task<T> AddAsync(T entity)
@@ -57,6 +51,17 @@ namespace ClinicManagementSystem.Infrastructure.Repositories
                 _context.Set<T>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (includes != null)
+                foreach (var include in includes)
+                    query = query.Include(include);
+
+            return await query.FirstOrDefaultAsync(criteria);
         }
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> criteria)

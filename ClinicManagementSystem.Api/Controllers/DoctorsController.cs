@@ -54,5 +54,36 @@ namespace ClinicManagementSystem.Api.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = doctor.Id }, doctor);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] CreateDoctorDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var existingDoctor = await _doctorRepo.GetByIdAsync(id);
+
+            if (existingDoctor == null)
+                return NotFound($"Doctor with ID {id} not found.");
+
+            _mapper.Map(dto, existingDoctor);
+
+            await _doctorRepo.UpdateAsync(existingDoctor);
+
+            return NoContent(); // 204 No Content (Standard for Update)
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var doctor = await _doctorRepo.GetByIdAsync(id);
+
+            if (doctor == null)
+                return NotFound($"Doctor with ID {id} not found.");
+
+            await _doctorRepo.DeleteAsync(id);
+
+            return NoContent();
+        }
     }
 }

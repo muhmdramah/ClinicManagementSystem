@@ -5,11 +5,12 @@ namespace ClinicManagementSystem.Core.Interfaces
     public interface IGenericRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAllAsync(string[] includes = null);
-        Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
+        Task<T> GetByIdAsync(int id);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
 
+        Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> criteria);
     }
 }
