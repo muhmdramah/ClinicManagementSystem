@@ -22,18 +22,24 @@ namespace ClinicManagementSystem.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var doctors = await _doctorRepo.GetAllAsync();
-            return Ok(doctors);
+            var doctors = await _doctorRepo.GetAllAsync(new[] { "Department" });
+
+            var data = _mapper.Map<IEnumerable<DoctorDto>>(doctors);
+
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var doctor = await _doctorRepo.GetByIdAsync(id);
+            var doctor = await _doctorRepo.FindAsync(d => d.Id == id, new[] { "Department" });
+
             if (doctor == null)
                 return NotFound($"Doctor with ID {id} not found.");
 
-            return Ok(doctor);
+            var data = _mapper.Map<DoctorDto>(doctor);
+
+            return Ok(data);
         }
 
         [HttpPost]

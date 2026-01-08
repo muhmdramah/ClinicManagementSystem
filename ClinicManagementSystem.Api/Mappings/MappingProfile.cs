@@ -11,6 +11,9 @@ namespace ClinicManagementSystem.Api.Helpers
             CreateMap<CreateDoctorDto, Doctor>();
 
             CreateMap<Doctor, CreateDoctorDto>();
+
+            CreateMap<Doctor, DoctorDto>()
+                .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name));
         }
     }
 }
