@@ -1,5 +1,7 @@
 using ClinicManagementSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using ClinicManagementSystem.Core.Interfaces;
+using ClinicManagementSystem.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
