@@ -1,33 +1,41 @@
-using ClinicManagementSystem.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
+using ClinicManagementSystem.Infrastructure.Data;
 using ClinicManagementSystem.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// 1. ????? ??? Controllers (??? ???? ??? API)
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
+// 2. ??????? Swagger (???????? ?? ????? ??????)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// 3. ??? ?????? ??? (Database Configuration)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// 4. ????? ??? Generic Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+
+// 5. ????? ??? Middleware ????? ?? Swagger
+// ??? ??? ?????? ??? (if development) ????? ????? ?????? ????? ???????
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// 6. ??? ??? Controllers ?????????
 app.MapControllers();
 
 app.Run();
