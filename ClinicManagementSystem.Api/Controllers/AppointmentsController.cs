@@ -12,11 +12,14 @@ namespace ClinicManagementSystem.Api.Controllers
     public class AppointmentsController : ControllerBase
     {
         private readonly IGenericRepository<Appointment> _appointmentRepo;
+        private readonly IGenericRepository<DoctorSchedule> _scheduleRepo;
         private readonly IMapper _mapper;
 
-        public AppointmentsController(IGenericRepository<Appointment> appointmentRepo, IMapper mapper)
+        public AppointmentsController(IGenericRepository<Appointment> appointmentRepo, 
+            IGenericRepository<DoctorSchedule> scheduleRepo, IMapper mapper)
         {
             _appointmentRepo = appointmentRepo;
+            _scheduleRepo = scheduleRepo;
             _mapper = mapper;
         }
 
@@ -46,15 +49,35 @@ namespace ClinicManagementSystem.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var appointment = _mapper.Map<Appointment>(dto);
 
-            // appointment.Status = "Pending";
+            if (dto.AppointmentDate < DateTime.Now)
+            {
+                return BadRequest("Cannot book an appointment in the past.");
+            }
+
+            var dayOfWeek = dto.AppointmentDate.DayOfWeek;
+
+            var schedulesList = await _scheduleRepo.FindAsync(
+                s => s.DoctorId == dto.DoctorId && s.DayOfWeek == dayOfWeek
+            );
+
+            var schedule = schedulesList.FirstOrDefault();
+
+            if (schedule == null || !schedule.IsAvailable)
+                return BadRequest($"Doctor is not available on {dayOfWeek}.");
+
+            var time = dto.AppointmentDate.TimeOfDay; 
+
+            if (time < schedule.StartTime || time > schedule.EndTime)
+                return BadRequest($"Doctor is only available between {schedule.StartTime} and {schedule.EndTime}.");
+
+
+            var appointment = _mapper.Map<Appointment>(dto);
 
             await _appointmentRepo.AddAsync(appointment);
 
             return CreatedAtAction(nameof(GetById), new { id = appointment.Id }, appointment);
         }
-
         // PUT: api/Appointments/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] CreateAppointmentDto dto)
