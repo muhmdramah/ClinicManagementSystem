@@ -3,6 +3,7 @@ using ClinicManagementSystem.Api.Dtos;
 using ClinicManagementSystem.Api.Dtos.Appointment;
 using ClinicManagementSystem.Api.Dtos.Doctor;
 using ClinicManagementSystem.Api.Dtos.Patient;
+using ClinicManagementSystem.Api.Dtos.Schedule;
 using ClinicManagementSystem.Core.Entities;
 
 namespace ClinicManagementSystem.Api.Helpers
@@ -27,6 +28,12 @@ namespace ClinicManagementSystem.Api.Helpers
             CreateMap<Appointment, AppointmentDto>()
                 .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
                 .ForMember(dest => dest.PatientName, opt => opt.MapFrom(src => src.Patient.FullName));
+
+
+            CreateMap<CreateScheduleDto, DoctorSchedule>();
+            CreateMap<DoctorSchedule, ScheduleDto>()
+                .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
+                .ForMember(dest => dest.DayOfWeek, opt => opt.MapFrom(src => src.DayOfWeek.ToString()));
         }
     }
 }
