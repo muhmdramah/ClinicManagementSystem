@@ -1,4 +1,4 @@
-﻿namespace ClinicManagementSystem.Api.Dtos
+﻿namespace ClinicManagementSystem.Api.Dtos.Doctor
 {
     public class DoctorDto
     {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ClinicManagementSystem.Api.Dtos;
+using ClinicManagementSystem.Api.Dtos.Doctor;
 using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
