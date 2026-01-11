@@ -3,12 +3,14 @@ using ClinicManagementSystem.Api.Dtos.Doctor;
 using ClinicManagementSystem.Api.Dtos.Patient;
 using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManagementSystem.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PatientsController : ControllerBase
     {
         private readonly IGenericRepository<Patient> _patientRepo;

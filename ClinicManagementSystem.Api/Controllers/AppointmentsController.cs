@@ -3,12 +3,14 @@ using ClinicManagementSystem.Api.Dtos;
 using ClinicManagementSystem.Api.Dtos.Appointment;
 using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManagementSystem.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] 
     public class AppointmentsController : ControllerBase
     {
         private readonly IGenericRepository<Appointment> _appointmentRepo;
