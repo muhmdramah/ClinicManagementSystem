@@ -2,12 +2,14 @@
 using ClinicManagementSystem.Api.Dtos.Schedule;
 using ClinicManagementSystem.Core.Entities;
 using ClinicManagementSystem.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManagementSystem.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SchedulesController : ControllerBase
     {
         private readonly IGenericRepository<DoctorSchedule> _scheduleRepo;
