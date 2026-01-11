@@ -1,4 +1,4 @@
-﻿# 🏥 Clinic Management System API
+# 🏥 Clinic Management System API
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet)
 ![Status](https://img.shields.io/badge/Status-Completed-success)
@@ -49,25 +49,34 @@ The solution follows the **Clean Architecture (Onion Architecture)** principles 
 Follow these steps to run the project locally:
 
 ### 1. Clone the Repository
-```bash
 
-git clone [https://github.com/muhmdramah/clinic-management-system.git]
+```bash
+git clone [https://github.com/muhmdramah/clinic-management-system.git](https://github.com/muhmdramah/clinic-management-system.git)
+```
 
 ### 2. Configure Database
+
 Open `appsettings.json` in the **API** project and update the connection string if necessary:
+
 ```json
 "ConnectionStrings": {
   "DefaultConnection": "Server=.;Database=ClinicDb;Trusted_Connection=True;TrustServerCertificate=True;"
 }
+```
 
 ### 3. Run Migrations
+
 Open **Package Manager Console** (select `Infrastructure` project as default) and run:
+
 ```powershell
 Update-Database
+```
 
 ### 4. Run the API
+
 ```bash
 dotnet run --project ClinicManagementSystem.Api
+```
 
 ## 🧪 How to Use (Security)
 
@@ -82,4 +91,5 @@ dotnet run --project ClinicManagementSystem.Api
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
+
 **Developed with ❤️ using .NET**
