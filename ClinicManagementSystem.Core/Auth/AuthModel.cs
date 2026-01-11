@@ -1,4 +1,4 @@
-﻿namespace ClinicManagementSystem.Api.Dtos
+﻿namespace ClinicManagementSystem.Core.Auth
 {
     public class AuthModel
     {

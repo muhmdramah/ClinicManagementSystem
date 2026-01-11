@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClinicManagementSystem.Api.Dtos
+namespace ClinicManagementSystem.Core.Auth
 {
     public class LoginDto
     {
