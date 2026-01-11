@@ -51,4 +51,35 @@ Follow these steps to run the project locally:
 ### 1. Clone the Repository
 ```bash
 
-git clone [https://github.com/muhmdramah/clinic-management-system.git](https://github.com/muhmdramah/clinic-management-system.git)
+git clone [https://github.com/muhmdramah/clinic-management-system.git]
+
+### 2. Configure Database
+Open `appsettings.json` in the **API** project and update the connection string if necessary:
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=.;Database=ClinicDb;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+
+### 3. Run Migrations
+Open **Package Manager Console** (select `Infrastructure` project as default) and run:
+```powershell
+Update-Database
+
+### 4. Run the API
+```bash
+dotnet run --project ClinicManagementSystem.Api
+
+## 🧪 How to Use (Security)
+
+1.  Go to the `/api/Auth/register` endpoint to create a user.
+2.  Go to `/api/Auth/login` to get a **Bearer Token**.
+3.  Click the **Authorize** button in Swagger (top right).
+4.  Enter the token as: `Bearer <YOUR_TOKEN>`.
+5.  Now you can access protected endpoints (Doctors, Appointments, etc.).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+**Developed with ❤️ using .NET**
