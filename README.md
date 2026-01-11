@@ -50,4 +50,5 @@ Follow these steps to run the project locally:
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/muhmdramah/clinic-management-system.git](https://github.com/your-username/clinic-management-system.git)
+
+git clone [https://github.com/muhmdramah/clinic-management-system.git](https://github.com/muhmdramah/clinic-management-system.git)
