@@ -6,6 +6,10 @@
 
 A comprehensive, secure, and scalable **RESTful API** built with **.NET 8** to manage clinic operations. This project demonstrates modern software engineering practices, including **Clean Architecture**, **Repository Pattern**, and **JWT Authentication**.
 
+### ✨ Now, you can reach the API LIVE on this link 💥
+👉 [**Open Clinic API (Swagger UI)**](https://clinicms.runasp.net/swagger/index.html)
+
+
 ## 📸 Screenshots
 
 ![Swagger UI](Assets/swagger.png)
@@ -93,3 +97,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ---
 
 **Developed with ❤️ using .NET**
+
